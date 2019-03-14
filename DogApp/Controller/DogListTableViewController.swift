@@ -37,6 +37,10 @@ class DogListTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return breeds.count
     }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectBreed = breeds[indexPath.row]
+        performSegue(withIdentifier: "moveToDetails", sender: selectBreed)
+    }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -45,6 +49,14 @@ class DogListTableViewController: UITableViewController {
         let selectBreed = breeds[indexPath.row]
         cell.textLabel?.text = selectBreed
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let detailsViewController = segue.destination as? DetailsViewController {
+            if let selectBreed = sender as? String {
+                detailsViewController.breed = selectBreed
+            }
+        }
     }
 
 
