@@ -42,10 +42,10 @@
             </objects>
             <point key="canvasLocation" x="1251" y="763"/>
         </scene>
-        <!--Details View Controller-->
+        <!--Breed Details View Controller-->
         <scene sceneID="9gW-JT-6LF">
             <objects>
-                <viewController id="XLB-Lc-ZqN" customClass="DetailsViewController" customModule="DogApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XLB-Lc-ZqN" customClass="BreedDetailsViewController" customModule="DogApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LGE-43-8Bh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -57,7 +57,7 @@
                                 <rect key="frame" x="16" y="534" width="343" height="30"/>
                                 <state key="normal" title="Sub-raca"/>
                                 <connections>
-                                    <action selector="moveToSubbreed:" destination="XLB-Lc-ZqN" eventType="touchUpInside" id="YaS-a4-nje"/>
+                                    <segue destination="dLM-96-t8R" kind="show" identifier="moveToSub" id="uGF-Nr-q9h"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Raca" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ao-f0-h9O">
@@ -93,6 +93,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xGF-1S-ApR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2115" y="762.67605633802816"/>
+        </scene>
+        <!--Sub Breed Details View Controller-->
+        <scene sceneID="aHz-ku-3lQ">
+            <objects>
+                <viewController id="dLM-96-t8R" customClass="SubBreedDetailsViewController" customModule="DogApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="d8R-Qc-aE5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Raca" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsT-7r-YJa">
+                                <rect key="frame" x="16" y="111" width="343" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wns-y8-geu">
+                                <rect key="frame" x="16" y="148" width="343" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="0ag-BC-yRq"/>
+                                </constraints>
+                            </pickerView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i0b-jV-An6">
+                                <rect key="frame" x="16" y="340" width="343" height="307"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="i0b-jV-An6" secondAttribute="bottom" constant="20" symbolic="YES" id="2dI-SS-UOg"/>
+                            <constraint firstItem="fsT-7r-YJa" firstAttribute="trailing" secondItem="wns-y8-geu" secondAttribute="trailing" id="8BQ-fp-VrC"/>
+                            <constraint firstItem="fsT-7r-YJa" firstAttribute="top" secondItem="xo5-Ny-bCn" secondAttribute="top" constant="47" id="CDx-L9-iKm"/>
+                            <constraint firstItem="fsT-7r-YJa" firstAttribute="leading" secondItem="wns-y8-geu" secondAttribute="leading" id="DUT-WQ-FKI"/>
+                            <constraint firstItem="fsT-7r-YJa" firstAttribute="leading" secondItem="d8R-Qc-aE5" secondAttribute="leadingMargin" id="P2h-XU-8Bl"/>
+                            <constraint firstItem="wns-y8-geu" firstAttribute="top" secondItem="fsT-7r-YJa" secondAttribute="bottom" constant="8" symbolic="YES" id="RW4-6J-qez"/>
+                            <constraint firstItem="fsT-7r-YJa" firstAttribute="trailing" secondItem="d8R-Qc-aE5" secondAttribute="trailingMargin" id="VVE-Zp-EIW"/>
+                            <constraint firstItem="wns-y8-geu" firstAttribute="leading" secondItem="i0b-jV-An6" secondAttribute="leading" id="WoZ-Md-NCY"/>
+                            <constraint firstItem="wns-y8-geu" firstAttribute="trailing" secondItem="i0b-jV-An6" secondAttribute="trailing" id="bIX-UO-6Re"/>
+                            <constraint firstItem="i0b-jV-An6" firstAttribute="top" secondItem="wns-y8-geu" secondAttribute="bottom" constant="32" id="ssV-Dz-fZe"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xo5-Ny-bCn"/>
+                    </view>
+                    <connections>
+                        <outlet property="breedLabel" destination="fsT-7r-YJa" id="dYx-tJ-ZdR"/>
+                        <outlet property="imageView" destination="i0b-jV-An6" id="YKn-QI-MCm"/>
+                        <outlet property="pickerView" destination="wns-y8-geu" id="yNF-8j-CbI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cbG-6j-iC5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3104.8000000000002" y="761.46926536731644"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Zo2-fk-8bo">

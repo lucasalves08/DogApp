@@ -8,9 +8,10 @@
 
 import UIKit
 
-class DetailsViewController: UIViewController {
+class BreedDetailsViewController: UIViewController {
 
     var breed = ""
+    var hasSub: Bool = false; 
     @IBOutlet weak var breedLabel: UILabel!
     @IBOutlet weak var breedImage: UIImageView!
     
@@ -33,8 +34,21 @@ class DetailsViewController: UIViewController {
         }
         
     }
-    
-    @IBAction func moveToSubbreed(_ sender: Any) {
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let subBreedDetailsController = segue.destination as? SubBreedDetailsViewController {
+            subBreedDetailsController.breed = self.breed
+        }
     }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "moveToSub" {
+            //validar se o array eh maior que zero
+            return false
+        }
+        return true
+    }
+    
+    
+    
+    
 }

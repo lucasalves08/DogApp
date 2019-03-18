@@ -52,7 +52,7 @@ class DogListTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let detailsViewController = segue.destination as? DetailsViewController {
+        if let detailsViewController = segue.destination as? BreedDetailsViewController {
             if let selectBreed = sender as? String {
                 detailsViewController.breed = selectBreed
             }

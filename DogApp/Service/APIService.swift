@@ -20,6 +20,8 @@ class DogAPI {
     enum Endpoint {
         case listAllBreeds
         case randomImageForBreed(String)
+        case randomImageForSuBreed(String, String)
+        case listAllSubBreeds(String)
         
         var url:URL {
             return URL(string: self.stringValue)!
@@ -31,10 +33,32 @@ class DogAPI {
                 return "https://dog.ceo/api/breeds/list/all"
             case .randomImageForBreed(let breed):
                 return "https://dog.ceo/api/breed/\(breed)/images/random"
+            case .listAllSubBreeds(let breed):
+                return "https://dog.ceo/api/breed/\(breed)/list"
+            case .randomImageForSuBreed(let breed, let subBreed):
+                return "https://dog.ceo/api/breed/\(breed)/\(subBreed)/images/random"
             }
         }
     }
     
+    //MARK: - Pega as subracas
+    class func requestSubBreedsList(breed: String, completionHandler: @escaping([String],Error?) -> Void) {
+        let task = URLSession.shared.dataTask(with: Endpoint.listAllSubBreeds(breed).url) {
+            (data, reponse, error) in
+            print(Endpoint.listAllSubBreeds(breed).url)
+            guard let data = data else {
+                completionHandler([],error)
+                return
+            }
+            let decoder = JSONDecoder()
+            let subBreedsReponse = try! decoder.decode(SubBreedsListResponse.self, from: data)
+            let subBreeds = subBreedsReponse.message
+            completionHandler(subBreeds, nil)
+        }
+        task.resume()
+    }
+    
+    //MARK: - Pega as racas
     class func requestBreedsList(completionHandler: @escaping([String],Error?) -> Void) {
         let task = URLSession.shared.dataTask(with: Endpoint.listAllBreeds.url) {
             (data, reponse, error) in
@@ -49,9 +73,25 @@ class DogAPI {
         }
         task.resume()
     }
-    
+    //MARK: - Pega as fotos aleatorias de uma raca
     class func requestRandomImage(breed: String, completionHandler: @escaping (BreedImage?,Error?) -> Void){
         let randomImageEndPoint = DogAPI.Endpoint.randomImageForBreed(breed).url
+        let task = URLSession.shared.dataTask(with: randomImageEndPoint) {
+            (data, response, error) in
+            guard let data = data else {
+                completionHandler(nil, error)
+                return
+            }
+            let decoder = JSONDecoder()
+            let imageData = try! decoder.decode(BreedImage.self, from: data)
+            completionHandler(imageData, nil)
+        }
+        task.resume()
+    }
+    
+    //MARK: - Pega as fotos aleatorias de uma subraca
+    class func requestRandomImageSubBreed(breed: String,subBreed:String, completionHandler: @escaping (BreedImage?,Error?) -> Void){
+        let randomImageEndPoint = DogAPI.Endpoint.randomImageForSuBreed(breed, subBreed).url
         let task = URLSession.shared.dataTask(with: randomImageEndPoint) {
             (data, response, error) in
             guard let data = data else {
